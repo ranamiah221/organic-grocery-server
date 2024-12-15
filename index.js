@@ -44,12 +44,20 @@ async function run() {
       const result = await cartCollection.insertOne(cart)
       res.send(result)
     })
+    // get specific user cart
     app.get('/carts', async(req, res)=>{
       let query ={};
       if(req.params?.email){
          query={email: req.params?.email}
       }
       const result = await cartCollection.find(query).toArray()
+      res.send(result)
+    })
+    // deleted cart..
+    app.delete('/carts/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query= {_id : new ObjectId(id)}
+      const result = await cartCollection.deleteOne(query)
       res.send(result)
     })
     // Send a ping to confirm a successful connection
