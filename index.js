@@ -31,6 +31,12 @@ async function run() {
       const result = await productCollection.find().toArray()
       res.send(result)
     })
+    // product post api...
+    app.post('/products', async(req, res)=>{
+      const product = req.body;
+      const result = await productCollection.insertOne(product)
+      res.send(result)
+    })
     // get specific product
     app.get('/products/:id', async(req, res)=>{
       const id= req.params.id;
